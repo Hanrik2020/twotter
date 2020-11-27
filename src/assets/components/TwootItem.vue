@@ -4,6 +4,7 @@
       <div class="twoot-item__user">@{{ username }}</div>
       <div class="twoot-item__content">
         {{ twoot.content }}
+        <strong class="fav" v-if="twoot.isFavorite">Favorite</strong>
       </div>
     </div>
   </div>
@@ -24,6 +25,8 @@ export default {
   },
   methods: {
     favoriteTwoot(id) {
+      let twootItem = this.twoot;
+      twootItem.isFavorite = !twootItem.isFavorite;
       this.$emit("favorite", id);
     },
   },
@@ -33,9 +36,9 @@ export default {
 <style scoped>
 .twoot-item {
   padding: 20px;
-  backgrouind-color: white;
+  background-color: white;
   border-radius: 5px;
-  border: 1px solid #DFE3E8;
+  border: 1px solid #dfe3e8;
   box-sizing: border-box;
   cursor: pointer;
   transition: all 0.25s ease;
@@ -44,10 +47,14 @@ export default {
 }
 
 .twoot-item:hover {
-  transform: scale(1.05, 1.05);
+  transform: scale(1.02, 1.02);
 }
 
 .twoot-item__user {
   font-weight: 600;
+}
+
+.fav {
+  color: green;
 }
 </style>
