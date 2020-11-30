@@ -8,7 +8,7 @@
   
 
 <script>
-import UserProfile from "./assets/components/UserProfile";
+import UserProfile from "./components/UserProfile";
 
 export default {
   name: "App",
@@ -16,7 +16,7 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss">
 @import url("https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap");
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;

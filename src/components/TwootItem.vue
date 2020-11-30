@@ -1,10 +1,12 @@
 <template>
   <div class="twoot-item" @click="favoriteTwoot(twoot.id)">
-    <div class="user-profile__twoot">
+    <div class="twoot-item__twoot">
       <div class="twoot-item__user">@{{ username }}</div>
       <div class="twoot-item__content">
         {{ twoot.content }}
-        <strong class="fav" v-if="twoot.isFavorite">Favorite</strong>
+        <strong class="twoot-item__favorite" v-if="twoot.isFavorite"
+          >Favorite</strong
+        >
       </div>
     </div>
   </div>
@@ -33,7 +35,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .twoot-item {
   padding: 20px;
   background-color: white;
@@ -44,17 +46,17 @@ export default {
   transition: all 0.25s ease;
   margin: 10px 0;
   margin-right: auto;
-}
 
-.twoot-item:hover {
-  transform: scale(1.02, 1.02);
-}
+  &:hover {
+    transform: scale(1.02, 1.02);
+  }
 
-.twoot-item__user {
-  font-weight: 600;
-}
+  .twoot-item__user {
+    font-weight: 600;
+  }
 
-.fav {
-  color: green;
+  .twoot-item__favorite {
+    color: green;
+  }
 }
 </style>
