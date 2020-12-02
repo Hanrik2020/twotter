@@ -1,24 +1,26 @@
 <template>
   <div class="user-profile">
-    <div
-      class="user-profile__user-panel"
-      :class="{ '--exceeded': newTwootCharacterCount > 180 }"
-    >
-      <h1 class="user-profile__username">@{{ user.username }}</h1>
-      <div class="user-profile__admin-badge" v-if="user.isAdmin">Admin</div>
+    <div class="user-profile__user-twoot">
+      <div class="user-profile__user-panel">
+        <h1 class="user-profile__username">@{{ state.user.username }}</h1>
+        <div class="user-profile__admin-badge" v-if="state.user.isAdmin">
+          Admin
+        </div>
 
-      <div class="user-prifle__follower-count">
-        <strong>Followers: {{ followers }}</strong>
+        <div class="user-prifle__follower-count">
+          <strong>Followers: {{ state.followers }}</strong>
+        </div>
       </div>
       <CreateTwootPanel @add-twoot="addTwoot" />
     </div>
+
     <div class="user-profile_twoots-wrapper">
       <TwootItem
-        v-for="twoot in user.twoot"
+        v-for="twoot in state.user.twoot"
         :key="twoot.id"
-        :username="user.username"
+        :username="state.user.username"
         :twoot="twoot"
-        @favorite="toggleFavorite"
+        @favorite="state.toggleFavorite"
       />
     </div>
   </div>
@@ -26,14 +28,17 @@
   
 
 <script>
+import { reactive } from "vue";
+
 import TwootItem from "./TwootItem";
 import CreateTwootPanel from "./CreateTwootPanel";
 
 export default {
   name: "UserProfile",
   components: { TwootItem, CreateTwootPanel },
-  data() {
-    return {
+
+  setup() {
+    const state = reactive({
       followers: 0,
       user: {
         id: 1,
@@ -48,25 +53,28 @@ export default {
           { id: 2, content: "Don't eat humans.", isFavorite: false },
         ],
       },
-    };
-  },
-  watch: {
-    followers(newFollowerCount, oldFollowerCount) {
-      if (oldFollowerCount < newFollowerCount) {
-        console.log(`${this.user.username} just gained a new follower!`);
-      }
-    },
-  },
-  computed: {},
+    });
 
-  methods: {
-    addTwoot(twoot) {
-      this.user.twoot.unshift({
-        id: this.user.twoot.length + 1,
+    function addTwoot(twoot) {
+      state.user.twoot.unshift({
+        id: state.user.twoot.length + 1,
         content: twoot,
       });
-    },
+    }
+
+    return {
+      state,
+      addTwoot,
+    };
   },
+
+  // watch: {
+  //   followers(newFollowerCount, oldFollowerCount) {
+  //     if (oldFollowerCount < newFollowerCount) {
+  //       console.log(`${this.user.username} just gained a new follower!`);
+  //     }
+  //   },
+  // },
 };
 </script>
 
@@ -74,11 +82,15 @@ export default {
 .user-profile {
   display: grid;
   grid-template-columns: 1fr 3fr;
-  width: 70%;
   padding: 50px 5%;
-  margin: auto;
-  background-color: cornflowerblue;
-  border-radius: 5px;
+  margin: 20px;
+  background-color: lightsteelblue;
+  border-radius: 15px;
+
+  .user-profile__user-twoot {
+    display: flex;
+    flex-direction: column;
+  }
 
   .user-profile__user-panel {
     display: flex;

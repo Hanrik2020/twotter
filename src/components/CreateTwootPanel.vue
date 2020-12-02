@@ -10,58 +10,66 @@
       for="newTwoot"
       ><strong>New Twoot </strong>({{ newTwootCharacterCount }}/180)</label
     >
-    <textarea id="newTwoot" rows="4" v-model="newTwootContent" />
+    <textarea id="newTwoot" rows="4" v-model="state.newTwootContent" />
 
     <div class="create-twoot__twoot-type">
-      <label for="newTwootType"><strong>Type</strong></label>
-      <select
-        class="create-twoot__twoot-selector"
-        id="newTwootType"
-        v-model="selectedTwootType"
-      >
-        <option
-          :value="option.value"
-          v-for="(option, index) in twootTypes"
-          :key="index"
+      <div>
+        <label for="newTwootType"><strong>Type: </strong></label>
+
+        <select
+          class="create-twoot__twoot-selector"
+          id="newTwootType"
+          v-model="state.selectedTwootType"
         >
-          {{ option.name }}
-        </option>
-      </select>
+          <option
+            :value="option.value"
+            v-for="(option, index) in state.twootTypes"
+            :key="index"
+          >
+            {{ option.name }}
+          </option>
+        </select>
+      </div>
+      <button
+        class="create-twoot__twoot-button"
+        :class="{ '--exceeded': newTwootCharacterCount > 180 }"
+      >
+        Twoot!
+      </button>
     </div>
-    <button
-      class="create-twoot__twoot-button"
-      :class="{ '--exceeded': newTwootCharacterCount > 180 }"
-    >
-      Twoot!
-    </button>
   </form>
 </template>
 
 <script>
+import { reactive, computed } from "vue";
+
 export default {
   name: "CreateTwootPanel",
-  data() {
-    return {
+
+  setup(props, ctx) {
+    const state = reactive({
       newTwootContent: "",
       selectedTwootType: "instant",
       twootTypes: [
         { value: "draft", name: "Draft" },
         { value: "instant", name: "Instant Twoot" },
       ],
-    };
-  },
-  computed: {
-    newTwootCharacterCount() {
-      return this.newTwootContent.length;
-    },
-  },
-  methods: {
-    createNewTwoot() {
-      if (this.newTwootContent && this.selectedTwootType !== "draft") {
-        this.$emit("add-twoot", this.newTwootContent);
-        this.newTwootContent = "";
+    });
+
+    const newTwootCharacterCount = computed(() => state.newTwootContent.length);
+
+    function createNewTwoot() {
+      if (state.newTwootContent && state.selectedTwootType !== "draft") {
+        ctx.emit("add-twoot", state.newTwootContent);
+        state.newTwootContent = "";
       }
-    },
+    }
+
+    return {
+      state,
+      newTwootCharacterCount,
+      createNewTwoot,
+    };
   },
 };
 </script>
@@ -71,9 +79,16 @@ export default {
   display: flex;
   flex-direction: column;
   padding-top: 20px;
+  margin-right: 50px;
+
+  #newTwoot {
+    border-radius: 5px;
+  }
 
   .create-twoot__twoot-type {
-    padding-bottom: 10px;
+    padding: 10px 0;
+    display: flex;
+    justify-content: space-between;
   }
 
   .create-twoot__twoot-selector {
@@ -81,8 +96,20 @@ export default {
   }
 
   .create-twoot__twoot-button {
+    border-radius: 5px;
+    background-color: cornflowerblue;
+    color: white;
+    border: 2px solid cornflowerblue;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.1s ease;
     &.--exceeded {
       display: none;
+    }
+    &:hover {
+      background-color: lightgreen;
+      color: black;
+      transform: scale(1.1, 1.1);
     }
   }
   .create-twoot__twoot-label {

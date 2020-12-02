@@ -25,12 +25,16 @@ export default {
       required: true,
     },
   },
-  methods: {
-    favoriteTwoot(id) {
-      let twootItem = this.twoot;
+  setup(props, ctx) {
+    function favoriteTwoot(id) {
+      let twootItem = props.user.twoot;
       twootItem.isFavorite = !twootItem.isFavorite;
-      this.$emit("favorite", id);
-    },
+      ctx.emit("favorite", id);
+    }
+
+    return {
+      favoriteTwoot,
+    };
   },
 };
 </script>
@@ -44,7 +48,7 @@ export default {
   box-sizing: border-box;
   cursor: pointer;
   transition: all 0.25s ease;
-  margin: 10px 0;
+  margin: 0 0 10px 0;
   margin-right: auto;
 
   &:hover {

@@ -1,8 +1,12 @@
 <template>
   <div id="app">
-    <div class="header">Twotter <img src="./assets/img/birb.png" /></div>
-
-    <UserProfile />
+    <nav>
+      <div class="navigation-logo">Twotter</div>
+      <div class="navigation-user">@{{ user.username }}</div>
+    </nav>
+    <div class="app-content">
+      <UserProfile />
+    </div>
   </div>
 </template>
   
@@ -13,6 +17,13 @@ import UserProfile from "./components/UserProfile";
 export default {
   name: "App",
   components: { UserProfile },
+  data() {
+    return {
+      user: {
+        username: "hankenbrune",
+      },
+    };
+  },
 };
 </script>
 
@@ -22,21 +33,31 @@ export default {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  margin-top: 30px;
 }
-
-.header {
+nav {
   display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: "Fredoka One", cursive;
-  font-size: 4rem;
-  font-weight: bolder;
-  text-align: center;
-  margin: 20px 0;
-}
 
-.header img {
-  width: 10%;
+  align-items: center;
+  color: whitesmoke;
+  height: 4rem;
+  background-color: cornflowerblue;
+  margin-bottom: 3rem;
+
+  .navigation-logo {
+    display: flex;
+    align-items: center;
+    margin-left: 3rem;
+    font-family: "Fredoka One", cursive;
+    font-size: 2rem;
+    font-weight: bolder;
+    text-align: center;
+    letter-spacing: 2px;
+  }
+  .navigation-user {
+    font-weight: 600;
+    margin-left: auto;
+    padding-right: 3rem;
+    font-size: 1.1rem;
+  }
 }
 </style>
