@@ -18,18 +18,22 @@ export default {
   props: {
     username: {
       type: String,
-      required: true,
+      required: true
     },
     twoot: {
       type: Object,
-      required: true,
-    },
+      required: true
+    }
   },
   setup(props, ctx) {
+    
     function favoriteTwoot(id) {
-      let twootItem = props.user.twoot;
+     
+      let twootItem = props.twoot;
       twootItem.isFavorite = !twootItem.isFavorite;
       ctx.emit("favorite", id);
+
+      
     }
 
     return {

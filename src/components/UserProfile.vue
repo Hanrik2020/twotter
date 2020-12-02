@@ -16,11 +16,11 @@
 
     <div class="user-profile_twoots-wrapper">
       <TwootItem
-        v-for="twoot in state.user.twoot"
+        v-for="twoot in state.user.twoots"
         :key="twoot.id"
         :username="state.user.username"
         :twoot="twoot"
-        @favorite="state.toggleFavorite"
+        @favorite="toggleFavorite"
       />
     </div>
   </div>
@@ -48,7 +48,7 @@ export default {
         email: "henrik.rydstrom@gmail.com",
         isAdmin: true,
 
-        twoot: [
+        twoots: [
           { id: 1, content: "Hej hej halloe", isFavorite: false },
           { id: 2, content: "Don't eat humans.", isFavorite: false },
         ],
@@ -56,8 +56,8 @@ export default {
     });
 
     function addTwoot(twoot) {
-      state.user.twoot.unshift({
-        id: state.user.twoot.length + 1,
+      state.user.twoots.unshift({
+        id: state.user.twoots.length + 1,
         content: twoot,
       });
     }
