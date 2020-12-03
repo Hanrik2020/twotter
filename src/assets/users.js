@@ -1,5 +1,5 @@
-{
-    "users": [
+export const users =
+    [
         {
             "id": 1,
             "username": "hankenbrune",
@@ -25,7 +25,7 @@
             "lastName": "Wiklund",
             "email": null,
             "isAdmin": false,
-            "twoots": null
+            "twoots": []
         },
         {
             "id": 3,
@@ -34,7 +34,7 @@
             "lastName": "Brannstrom",
             "email": null,
             "isAdmin": false,
-            "twoots": null
+            "twoots": []
         },
         {
             "id": 4,
@@ -43,7 +43,6 @@
             "lastName": "Lundberg",
             "email": null,
             "isAdmin": false,
-            "twoots": null
+            "twoots": []
         }
     ]
-}

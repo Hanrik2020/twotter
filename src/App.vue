@@ -1,23 +1,23 @@
 <template>
   <div id="app">
     <nav>
-      <div class="navigation-logo">Twotter</div>
+      <router-link to="/">
+        <div class="navigation-logo">Twotter</div>
+      </router-link>
+
       <div class="navigation-user">@{{ user.username }}</div>
     </nav>
     <div class="app-content">
-      <UserProfile />
+      <router-view />
     </div>
   </div>
 </template>
   
 
 <script>
-
-import UserProfile from "./components/UserProfile";
-
 export default {
   name: "App",
-  components: { UserProfile },
+
   data() {
     return {
       user: {
@@ -37,7 +37,6 @@ export default {
 }
 nav {
   display: flex;
-
   align-items: center;
   color: whitesmoke;
   height: 4rem;
@@ -49,7 +48,7 @@ nav {
     align-items: center;
     margin-left: 3rem;
     font-family: "Fredoka One", cursive;
-    font-size: 2rem;
+    font-size: 1.6rem;
     font-weight: bolder;
     text-align: center;
     letter-spacing: 2px;
