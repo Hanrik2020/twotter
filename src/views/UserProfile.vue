@@ -93,7 +93,7 @@ export default {
     padding: 20px;
     background-color: white;
     border-radius: 5px;
-    border: 1px solid #dfe3e8;
+    border: 1px solid gray;
 
     h1 {
       margin: 0;

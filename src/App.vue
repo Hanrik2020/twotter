@@ -5,7 +5,7 @@
         <div class="navigation-logo">Twotter</div>
       </router-link>
 
-      <div class="navigation-user">@{{ user.username }}</div>
+      <div class="navigation-user" v-if="user">@{{ user.username }}</div>
     </nav>
     <div class="app-content">
       <router-view />
@@ -15,14 +15,17 @@
   
 
 <script>
+import { useStore } from "vuex";
+import { computed } from "vue";
+
 export default {
   name: "App",
+  setup() {
+    const store = useStore();
+    const user = computed(() => store.state.User.user);
 
-  data() {
     return {
-      user: {
-        username: "hankenbrune",
-      },
+      user,
     };
   },
 };
